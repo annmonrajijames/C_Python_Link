@@ -2,7 +2,7 @@ import tkinter as tk
 from subprocess import Popen, PIPE
 
 def run_c_program():
-    input_values = f"{a1.get()} {a2.get()} {a3.get()} {a4.get()} {a5.get()} {a6} {a7} {a8} {a9} {a10} {a11}"
+    input_values = f"{a1.get()} {a2.get()} {a3.get()} {a4.get()} {a5.get()} {a6.get()} {a7.get()} {a8.get()} {a9.get()} {a10.get()} {a11.get()}"
     process = Popen(['./cfile'], stdin=PIPE, stdout=PIPE)
     stdout, stderr = process.communicate(input=input_values.encode())
     return stdout.decode().strip()
@@ -17,7 +17,7 @@ root.title("Variable Input for C Program")
 
 # Variables setup after creating the root window
 a1, a2, a3, a4, a5 = tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root)
-a6, a7, a8, a9, a10, a11 = 1, 22, 11, 23, 11, 99  # Static values for other variables
+a6, a7, a8, a9, a10, a11 = tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root)
 
 # Radio buttons for a1 to a5
 labels = ['a1', 'a2', 'a3', 'a4', 'a5']
@@ -30,6 +30,18 @@ for i, (label, var) in enumerate(zip(labels, vars)):
     tk.Radiobutton(frame, text='0', variable=var, value=0).pack(side=tk.LEFT)
     tk.Radiobutton(frame, text='1', variable=var, value=1).pack(side=tk.LEFT)
     var.set(0)  # Default value set to 0
+
+# Scales for a6 to a11
+scale_labels = ['a6', 'a7', 'a8', 'a9', 'a10', 'a11']
+scale_vars = [a6, a7, a8, a9, a10, a11]
+
+for label, var in zip(scale_labels, scale_vars):
+    frame = tk.Frame(root)
+    frame.pack(pady=5)
+    tk.Label(frame, text=label).pack(side=tk.LEFT)
+    scale = tk.Scale(frame, from_=0, to=100, orient='horizontal', variable=var)
+    scale.pack(fill='x', expand=True)
+    var.set(50)  # Default value set to middle of the range
 
 # Submit button
 submit_button = tk.Button(root, text="Run C Program", command=submit)
