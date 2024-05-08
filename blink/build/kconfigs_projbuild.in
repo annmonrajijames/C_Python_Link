@@ -1,0 +1,6 @@
+source "C:/Users/AnnmonRajiJames/esp/v5.2.1/esp-idf/components/bootloader/Kconfig.projbuild"
+source "C:/Users/AnnmonRajiJames/esp/v5.2.1/esp-idf/components/esp_app_format/Kconfig.projbuild"
+source "C:/Users/AnnmonRajiJames/esp/v5.2.1/esp-idf/components/esp_rom/Kconfig.projbuild"
+source "C:/Users/AnnmonRajiJames/esp/v5.2.1/esp-idf/components/esptool_py/Kconfig.projbuild"
+source "C:/Users/AnnmonRajiJames/esp/v5.2.1/esp-idf/components/partition_table/Kconfig.projbuild"
+source "C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/main/Kconfig.projbuild"

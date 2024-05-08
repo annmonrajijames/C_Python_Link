@@ -1,52 +1,53 @@
 import tkinter as tk
-from subprocess import Popen, PIPE
+import serial.tools.list_ports
+import serial
 
-def run_c_program():
-    input_values = f"{a1.get()} {a2.get()} {a3.get()} {a4.get()} {a5.get()} {a6.get()} {a7.get()} {a8.get()} {a9.get()} {a10.get()} {a11.get()}"
-    process = Popen(['./cfile'], stdin=PIPE, stdout=PIPE)
-    stdout, stderr = process.communicate(input=input_values.encode())
-    result_label.config(text="Output from C program: " + stdout.decode().strip())
+def send_command():
+    port = port_var.get()
+    input_value = entry.get()
+    
+    if not port:
+        result_label.config(text="Please select a port.")
+        return
+    
+    ser = None  # Initialize `ser` to None
+    try:
+        ser = serial.Serial(port, 9600, timeout=1)
+        ser.write(input_value.encode())
+        print("encoded_value---------------->",input_value.encode())
+        result_label.config(text=f"Command sent to {port}: {input_value}")
+    except serial.SerialException as e:
+        result_label.config(text=f"Error: Could not open {port}. {str(e)}")
+    finally:
+        if ser and ser.is_open:  # Check if `ser` is not None and is open
+            ser.close()
 
-# Tkinter window setup
+# Create the main window
 root = tk.Tk()
-root.title("Variable Input for C Program")
+root.title("ESP32 LED Control")
 
-# Variables setup after creating the root window
-a1, a2, a3, a4, a5 = tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root)
-a6, a7, a8, a9, a10, a11 = tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root), tk.IntVar(root)
+# Find available serial ports
+ports = [port.device for port in serial.tools.list_ports.comports()]
 
-def create_radio_frame(parent, label, var):
-    frame = tk.Frame(parent)
-    tk.Label(frame, text=label).pack(side=tk.LEFT)
-    tk.Radiobutton(frame, text='0', variable=var, value=0, command=run_c_program).pack(side=tk.LEFT)
-    tk.Radiobutton(frame, text='1', variable=var, value=1, command=run_c_program).pack(side=tk.LEFT)
-    var.set(0)
-    return frame
+# Port selection dropdown
+port_var = tk.StringVar(root)
+port_var.set(ports[0] if ports else "")
+port_dropdown = tk.OptionMenu(root, port_var, *ports)
+port_dropdown.pack()
 
-def create_scale_frame(parent, label, var):
-    frame = tk.Frame(parent)
-    tk.Label(frame, text=label).pack(side=tk.LEFT)
-    scale = tk.Scale(frame, from_=0, to=100, orient='horizontal', variable=var, command=lambda v: run_c_program())
-    scale.pack(fill='x', expand=True)
-    var.set(50)
-    return frame
+# User input entry
+entry_label = tk.Label(root, text="Enter '1' to turn on the LED:")
+entry_label.pack()
+entry = tk.Entry(root)
+entry.pack()
 
-# Create radio button frames for a1 to a5
-labels = ['a1', 'a2', 'a3', 'a4', 'a5']
-vars = [a1, a2, a3, a4, a5]
-for label, var in zip(labels, vars):
-    frame = create_radio_frame(root, label, var)
-    frame.pack(pady=5)
-
-# Create scale frames for a6 to a11
-scale_labels = ['a6', 'a7', 'a8', 'a9', 'a10', 'a11']
-scale_vars = [a6, a7, a8, a9, a10, a11]
-for label, var in zip(scale_labels, scale_vars):
-    frame = create_scale_frame(root, label, var)
-    frame.pack(pady=5)
+# Send command button
+send_button = tk.Button(root, text="Send Command", command=send_command)
+send_button.pack()
 
 # Result label
-result_label = tk.Label(root, text="Output from C program will appear here")
-result_label.pack(pady=20)
+result_label = tk.Label(root, text="")
+result_label.pack()
 
+# Run the Tkinter event loop
 root.mainloop()
