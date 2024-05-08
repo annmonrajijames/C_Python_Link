@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/CMakeFiles/bootloader
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/CMakeFiles/bootloader.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/CMakeFiles/bootloader-complete.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Lectrix_company/work/Git_Projects/Python_C_Link_Tkinter/blink/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
